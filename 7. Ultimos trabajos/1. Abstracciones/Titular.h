@@ -14,7 +14,7 @@ Cliente*: cliente;
 Cuenta* cuenta;
 
 public:
-Titular(Cliente* auxCliente,Cuenta* auxCuenta,std::string auxTipo,std::string auxFecha);
+Titular(Cliente* auxCliente,Cuenta* auxCuenta,int auxID, std::string auxTipo,std::string auxFecha);
 std::string getTipoTitular();
 std::string getFechaVinculacion();
 Cliente* getCliente();

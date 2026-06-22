@@ -1,7 +1,6 @@
 #include "Parse.h"
 #include <nlohmann/json.hpp>
 #include <fstream>
-#include <Modelo.h>
 using Json = nlohmann::json;
 
 
@@ -14,7 +13,7 @@ bool Parse::crearBanco(Banco& banco){
   
   //de no abrir, retorna false
   if(!archivo.is_open()){
-    std::cerr<<"";
+    std::cerr<<"Error no se abrió el archivo"<<std::endl;
     return false;
   }
   
@@ -43,7 +42,7 @@ bool Parse::cargarClientes(std::vector<Cliente>& clientes){
   
   //de no abrir, retorna false
   if(!archivo.is_open()){
-    std::cerr<<"Error el archivo no abrió";
+    std::cerr<<"Error el archivo no abrió"<<std::endl;
     return false;
   }
   
@@ -80,7 +79,7 @@ bool Parse::cargarCuentas(std::vector(Cuenta)& cuentas){
   
   //verificar que abrió 
   if (!archivo.is_open()){
-    std::cerr<<"Error. El archivo no se abrió";
+    std::cerr<<"Error. El archivo no se abrió"<<std::endl;
     return false;
   }
   
@@ -113,10 +112,42 @@ bool Parse::cargarCuentas(std::vector(Cuenta)& cuentas){
 
 
 bool cargarTitulares(Banco& banco, std::vector<Cliente>& clientes, std::vector<Cuenta>& cuentas){
-  //
+  //Atributos titular
+  int idTitular;
+  std::string tipoTitular;
+  std::string fechaVinculacion;
+  std::vector<Titular> titulares;
   
+  //abrir archivo
+  std::fstream archivo("Banco.json");
   
-  if(titular["cliente"]["id"] == id )
-
-
+  //Verificar que abrió
+  if (!archivo.is_open()){
+    std::cerr<<"Error al abrir el archivo"<<std::endl;
+    return 1;
+  }
+  
+  //Crear Json
+  Json banco = json::parse(archivo);
+  
+  //cerrar archivo
+  archivo.close();
+  
+  for (auto& titular: banco["banco"]["titular"])
+    for(auto& cliente: clientes){
+     if(titular["cliente"]["id"] == cliente.getIdentificacion()){
+      for(auto& cuenta: cuentas){
+        if (titular["cliente"]["cuenta"]){
+          idTitular = titular["idTitular"];
+          tipoTitular = titular["tipoTitular"];
+          fechaVinculacion = titular["fechaVinculacion"]};
+          Titular titular(cliente&, cuenta&, idTitular, tipoTitular, fechaVinculacion);
+          titulares.push_back(titular);
+        }
+      }
+     }
+    }
+   }
+  banco.setTitulares(titulares);
+  return true;
 }

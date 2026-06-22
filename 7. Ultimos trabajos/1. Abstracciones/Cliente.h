@@ -7,7 +7,7 @@ private:
 std::string identificacion, nombre, telefono;
 
 public:
-Cliente(identificacion : string, nombre : string, telefono : string);
+Cliente(std::string identificacion, std::string nombre, std::string telefono);
 std::string getIdentificacion();
 std::string getNombre();
 std::string getTelefono()
@@ -16,4 +16,4 @@ void setNombre(nombre : string);
 void setTelefono(telefono : string);
 };
 
-#ifdef
+#endif

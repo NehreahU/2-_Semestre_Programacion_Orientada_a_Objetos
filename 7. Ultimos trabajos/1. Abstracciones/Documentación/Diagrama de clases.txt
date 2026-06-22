@@ -52,7 +52,7 @@ class Titularidad {
 - cliente : Cliente*
 - cuenta : Cuenta*
 --
-+ Titularidad(cliente : Cliente*, cuenta : Cuenta*, tipo : string, fecha : string)
++ Titularidad(cliente : Cliente*, cuenta : Cuenta*,auxID: int, tipo : string, fecha : string)
 + getTipoTitular() : string
 + getFechaVinculacion() : string
 + getCliente() : Cliente*

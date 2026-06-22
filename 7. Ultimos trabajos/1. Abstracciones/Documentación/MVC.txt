@@ -7,7 +7,7 @@ class Controller {
 -
 +Controller
 +iniciarSistema() //Crea un objeto model, el model contiene el banco, so... iniciar el banco.
-+añadirUsuario()
++añadirUsuario() //Crea clinete, cuenta y crea un titular con estos dos ultimos.
 +consignarDinero()
 +retirarDinero()
 }
@@ -24,8 +24,7 @@ class Model {
 
 +crearCuenta(): void //Se crea objeto cuenta y se envía al vector de cuentas.
 +crearCliente(): void //Se crea un objeto cliente y se envía al vector cliente.
-+crearTitular(): void se crea un objeto titular,un objeto cliente y otro cuenta, luego hago titular(Cliente&, Cuenta&) allá en titular el recibe titular(cliente*, cuenta*)
-+setBanco(Banco auxBanco);// ////////////////////////////////////////////////////////////////////////////////Banco&
++crearTitular(cliente: Cliente&, cuenta: Cuenta&): void se crea un objeto titular con dos ojetos Cliente&  y Cuenta& allá en titular el recibe titular(cliente*, cuenta*)
 }
 
 ' ==== CLASE CLIENTE ====
@@ -41,7 +40,10 @@ class View {
 
 ' ==== CLASE PARSE ====
 Class Parse{
-+abrirJson(Banco& banco): bool
-+actualizarJson(Banco& banco): void
++bool setNombreBanco(Banco& banco);
++bool cargarClientes(std::vector<Cliente>& clientes);
++bool cargarCuentas(std::vector<Cuenta>& cuentas);
+
++void cargarTitulares(Banco& banco);
 }
 @enduml
