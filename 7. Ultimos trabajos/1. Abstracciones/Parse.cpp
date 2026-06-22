@@ -98,7 +98,7 @@ bool Parse::cargarCuentas(std::vector(Cuenta)& cuentas){
       saldo = titular["saldo"];
       limiteSobregiro = titular["limiteSobregiro"];
       //crea el objeto y lo ingresa
-      CuentaCorriente cuenta(id, saldo, limiteSobregiro);
+      CuentaCorriente cuenta(idTitular, id, saldo, limiteSobregiro);
       cuentas.push_back(cuenta);
     }
     else if(tipoTitular == "CuentaAhorros"){
@@ -107,7 +107,7 @@ bool Parse::cargarCuentas(std::vector(Cuenta)& cuentas){
       saldo = titular["saldo"];
       tasaInteres = titular["tasaInteres"];
       //crea el objeto y lo ingresa
-      CuentaAhorros cuenta(id, saldo, tasaInteres);
+      CuentaAhorros cuenta(idTitular, id, saldo, tasaInteres);
       cuentas.push_back(cuenta);      
     }
   }//end for
@@ -139,9 +139,9 @@ bool cargarTitulares(Banco& banco, std::vector<Cliente>& clientes, std::vector<C
   
   for (auto& titular: banco["banco"]["titular"])
     for(auto& cliente: clientes){
-     if(titular["cliente"]["id"] == cliente.getIdentificacion()){
+     if(titular["idTitular"] == cliente.getIdTitular()){
       for(auto& cuenta: cuentas){
-        if (titular["cliente"]["cuenta"]){
+        if (titular["idTitular"] == cuenta.getIdtitular()){
           idTitular = titular["idTitular"];
           tipoTitular = titular["tipoTitular"];
           fechaVinculacion = titular["fechaVinculacion"]};
