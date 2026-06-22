@@ -1,0 +1,53 @@
+@startuml
+class Medicamento{
+-ID: int
+-Nombre: string
+-FormaPresentacion: string
+-CantidadDisponible: Int
+-CostoCompra:Double
+-PrecioVenta: double
+
++Medicamento(string auxNombre, string auxFormaDePresentacion, int auxCantidadDisponible, double auxCostoCompra, auxPrecioBenta)//Método Constructor
++getNombre()
++getFormaDePresentacion()
++getCantidadDisponible()
++getCostoCompra()
++getPrecioVenta()
+}
+
+class Inventario{
+-MedicamentosFarmacia: Vector Medicamento
+
++Inventario()
++setInventario(Medicamento &auxMedicamento)
++getInventario()
++elminarMedicamento()
++actulizarCantidadMedicamento(Medicamento &auxMedicamento)
+}
+
+dataclass MMedicamentos{
+-NombreArchivo: String
+-MedicamentosFarmacia: Vector Medicamento
++MMedicamentos()
++guardarArchivo(Medicamentos &auxMedicamentos)
++cargarArchivo()
++mostrarMedicamentos()
+}
+
+class VMedicamentos{
+-MedicamentosFarmacia: Vector Medicamento
++VMedicamentos()
++MostrarMedicamentos()
++MostrarMedicamento(Medicamento auxMedicamentoAMostrar)
+}
+
+
+
+
+Inventario *-- Medicamento
+Inventario -- MMedicamentos
+Inventario -- VMedicamentos
+
+
+
+

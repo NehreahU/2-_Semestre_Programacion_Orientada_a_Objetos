@@ -1,0 +1,79 @@
+@startuml
+title Diagrama de Clases - Sistema Bancario
+left to right direction
+' ==== CLASE CLIENTE ====
+class Cliente {
+- identificacion : string
+- nombre : string
+- telefono : string
+--
++ Cliente(identificacion : string, nombre : string, telefono : string)
++ getIdentificacion() : string
++ getNombre() : string
++ getTelefono() : string
++ setIdentificacion(codigo : string) : void
++ setNombre(nombre : string) : void
++ setTelefono(telefono : string) : void
+}
+' ==== CLASE CUENTA (BASE) ====
+class Cuenta {
+- id : string
+- saldo : long
+--
++ Cuenta(id : string, saldo : long)
++ getNumeroCuenta() : string
++ getSaldo() : long
++ setNumeroCuenta(id : string) : void
++ setSaldo(saldo : long) : void
++ retirarDinero(cantidad : long) : bool
++ consignarDinero(cantidad : long) : void
+}
+' ==== SUBCLASES DE CUENTA ====
+skinparam groupInheritance 2
+class CuentaAhorros {
+- tasaInteres : double
+--
++ aplicarInteres() : void
+}
+class CuentaCorriente {
+- limiteSobregiro : long
+--
++ setLimiteSobregiro(limite : long) : void
++ getLimiteSobregiro() : long
++ retirarDinero(cantidad : long) : bool
+}
+CuentaAhorros -|> Cuenta
+CuentaCorriente -|> Cuenta
+' ==== CLASE TITULARIDAD (Asociativa) ====
+class Titularidad {
+- idTitular : int
+- tipoTitular : string
+- fechaVinculacion : string
+- cliente : Cliente*
+- cuenta : Cuenta*
+--
++ Titularidad(cliente : Cliente*, cuenta : Cuenta*, tipo : string, fecha : string)
++ getTipoTitular() : string
++ getFechaVinculacion() : string
++ getCliente() : Cliente*
++ getCuenta() : Cuenta*
+}
+' ==== CLASE BANCO ====
+class Banco {
+- nombre : string
+- titulares : vector<Titularidad>
+--
++ Banco(nombre : string)
++ getNombre() : string
++ addTitularidad(t : Titularidad) : void
++ addTitularidadReferencia(t : Titularidad&) : void
++ imprimirDatos() : void
++ calcularPromedio() : void
++ setNombre(auxNombre: string): void
+}
+' ==== RELACIONES ====
+Titularidad "1" --* "*" Banco : Contiene >
+Cliente "1" o-- "1..*" Titularidad : Conoce >
+Cuenta "1" o-- "1..*" Titularidad : Conoce >
+Titularidad : une Cliente y Cuenta
+@enduml

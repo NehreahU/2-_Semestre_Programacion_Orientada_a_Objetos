@@ -1,0 +1,47 @@
+@startuml
+title Diagrama de Clases - Sistema Bancario
+left to right direction
+
+' ==== CLASE CLIENTE ====
+class Controller {
+-
++Controller
++iniciarSistema() //Crea un objeto model, el model contiene el banco, so... iniciar el banco.
++añadirUsuario()
++consignarDinero()
++retirarDinero()
+}
+
+' ==== CLASE CLIENTE ====
+class Model {
+-banco: Banco
+-clientes: vector<Cliente>
+-Cuentas: vector<Cuenta>
+--
++Model();
+
++cargarJson(): bool // cargarVectorCuentas(): void  //Carga un vector de cuentas de un json // cargarVectorClientes(): void //Carga un vector de clientes de un json
+
++crearCuenta(): void //Se crea objeto cuenta y se envía al vector de cuentas.
++crearCliente(): void //Se crea un objeto cliente y se envía al vector cliente.
++crearTitular(): void se crea un objeto titular,un objeto cliente y otro cuenta, luego hago titular(Cliente&, Cuenta&) allá en titular el recibe titular(cliente*, cuenta*)
++setBanco(Banco auxBanco);// ////////////////////////////////////////////////////////////////////////////////Banco&
+}
+
+' ==== CLASE CLIENTE ====
+class View {
+-0. Banco Renea (banco.getNombre)
+-1. Agregar usuario 
+-2. Consinar dinero
+-3. Retirar dinero
+--
++mostrarTitular()
++
+}
+
+' ==== CLASE PARSE ====
+Class Parse{
++abrirJson(Banco& banco): bool
++actualizarJson(Banco& banco): void
+}
+@enduml
