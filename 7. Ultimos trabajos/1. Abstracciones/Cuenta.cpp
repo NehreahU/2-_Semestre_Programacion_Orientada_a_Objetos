@@ -1,7 +1,11 @@
 #include "Cuenta.h"
 #include <string>
 
-Cuenta::Cuenta(std::string auxId, long auxSaldo):id(auxId),saldo(auxSaldo){
+Cuenta::Cuenta(int auxIdTitular, std::string auxId, long auxSaldo):idTitular(auxIdTitular),id(auxId),saldo(auxSaldo){
+}
+
+int Cuenta::getIdTitular(){
+  return idTitular;
 }
 
 std::string Cuenta::getNumeroCuenta(){
@@ -26,7 +30,7 @@ bool Cuenta::retirarDinero(long cantidad){
     return true;
   }
   else{
-  return false;
+    return false;
   }
 }
 

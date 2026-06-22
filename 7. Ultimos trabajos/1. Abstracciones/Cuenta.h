@@ -5,11 +5,13 @@
 class Cuenta {
 
 private:
+int idTitular;
 std::string id;
 long saldo;
 
 public:
-Cuenta(std::string auxId, long auxSaldo);
+Cuenta(int idTitular, std::string auxId, long auxSaldo);
+int getIdTitular();
 std::string getNumeroCuenta();
 long getSaldo();
 void setNumeroCuenta(std::string auxId);

@@ -32,6 +32,7 @@ bool Parse::crearBanco(Banco& banco){
 
 
 bool Parse::cargarClientes(std::vector<Cliente>& clientes){
+  int idTitular;
   //atributos de cliente
   std::string identificacionCliente;
   std::string nombreCliente;
@@ -68,6 +69,7 @@ bool Parse::cargarClientes(std::vector<Cliente>& clientes){
 
 bool Parse::cargarCuentas(std::vector(Cuenta)& cuentas){
   //atributos clientes
+  int idTitular;
   std::string id;
   std::string saldo;
   long limiteSobregiro;
@@ -87,10 +89,11 @@ bool Parse::cargarCuentas(std::vector(Cuenta)& cuentas){
   Json bancoJson = json::parse(archivo);
   
   for(autor& titular: bancoJson["banco"]["titular"]){
-    tipoTitular = titular["tipoTitular"]
+    tipoTitular = titular["tipoTitular"];
     
     //Verifica que tipo de titular es, para espeficar el tipo de cuenta
     if (tipoTitular == "CuentaCorriente"){
+      idTitular = titular["idTitular"];
       id = titular["id"];
       saldo = titular["saldo"];
       limiteSobregiro = titular["limiteSobregiro"];
@@ -99,6 +102,7 @@ bool Parse::cargarCuentas(std::vector(Cuenta)& cuentas){
       cuentas.push_back(cuenta);
     }
     else if(tipoTitular == "CuentaAhorros"){
+      idTitular = titular["idTitular"];
       id = titular["id"];
       saldo = titular["saldo"];
       tasaInteres = titular["tasaInteres"];

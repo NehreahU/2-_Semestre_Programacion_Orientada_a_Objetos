@@ -7,7 +7,9 @@ class Controller {
 -
 +Controller
 +iniciarSistema() //Crea un objeto model, el model contiene el banco, so... iniciar el banco.
-+añadirUsuario() //Crea clinete, cuenta y crea un titular con estos dos ultimos.
++añadirUsuario() //Solicita la informacion del titular, Crea cliente, cuenta y crea un titular con estos dos ultimos y la información del titular
++añadirCliente()
++añadirCuenta() //Añade una cuenta a el titular
 +consignarDinero()
 +retirarDinero()
 }
@@ -18,6 +20,7 @@ class Model {
 -clientes: vector<Cliente>
 -Cuentas: vector<Cuenta>
 --
+
 +Model();
 
 +cargarJson(): bool // cargarVectorCuentas(): void  //Carga un vector de cuentas de un json // cargarVectorClientes(): void //Carga un vector de clientes de un json
@@ -25,6 +28,9 @@ class Model {
 +crearCuenta(): void //Se crea objeto cuenta y se envía al vector de cuentas.
 +crearCliente(): void //Se crea un objeto cliente y se envía al vector cliente.
 +crearTitular(cliente: Cliente&, cuenta: Cuenta&): void se crea un objeto titular con dos ojetos Cliente&  y Cuenta& allá en titular el recibe titular(cliente*, cuenta*)
++consignarDinero(int dinero): void
++retirarDinero(int dinero): void
++consultarSaldo(): int
 }
 
 ' ==== CLASE CLIENTE ====

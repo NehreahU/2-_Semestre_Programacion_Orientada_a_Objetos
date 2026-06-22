@@ -1,28 +1,32 @@
 #include "cliente.h"
 
-Cliente(identificacion : string, nombre : string, telefono : string){
+Cliente::Cliente(int auxIdTitular, std::string auxIdentificacion,std::string auxNombre,std::string auxTelefono): idTitular(auxIdTitular), identificacion(auxIdentificacion), nombre(auxNombre), telefono(auxTelefono){
 }
 
-std::string getIdentificacion(){
+int Cliente::getIdTitular(){
+  return idTitular;
+}
+
+std::string Cliente::getIdentificacion(){
  return identificacion;
 }
 
-std::string getNombre(){
+std::string Cliente::getNombre(){
  return nombre;
 }
 
-std::string getTelefono(){
+std::string Cliente::getTelefono(){
  return telefono;
 }
 
-void setIdentificacion(std::string codigo){
+void Cliente::setIdentificacion(std::string codigo){
   id = codigo;
 }
 
-void setNombre(std::string auxNombre){
+void Cliente::setNombre(std::string auxNombre){
  nombre = auxNombre
 }
 
-void setTelefono(auNombre auxTelefono){
+void Cliente::setTelefono(auNombre auxTelefono){
  telefono = auxTelefono;
 }
