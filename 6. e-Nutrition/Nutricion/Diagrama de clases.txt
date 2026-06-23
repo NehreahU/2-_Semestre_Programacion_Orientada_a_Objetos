@@ -1,0 +1,24 @@
+@startuml
+class Receta{
+private:
+-nombre: string
+-ingredientes: vector
+public:
++getReceta()
+}
+
+
+class APIS{
+private:
+-apiID1:string
+-apiID2:string
+-apiKey1:string 
+-apiKey2:string
+
++urlEncode(const std::string& value)
++writeCallback
+
+}
+
+Receta --* APIS
+@enduml
