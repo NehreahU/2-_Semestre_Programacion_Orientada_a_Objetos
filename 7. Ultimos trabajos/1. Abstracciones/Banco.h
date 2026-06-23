@@ -13,7 +13,7 @@ std::vector<Titular> titulares;
 public:
 Banco(std::string auxNombre);
 std::string getNombre();
-void addTitular(Titular& titular);
+void addTitular(Titular titular);
 void setTitulares(std::vector<Titular> auxTitulares);
 void imprimirDatos();
 void calcularPromedio();

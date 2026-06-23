@@ -9,7 +9,7 @@ bool Parse::crearBanco(Banco& banco){
   std::string nombreBanco;
   
   //Abre el archivo
-  std::ifstream archivo("Banco.json");
+  std::ifstream archivo("Data/Banco.json");
   
   //de no abrir, retorna false
   if(!archivo.is_open()){
@@ -39,7 +39,7 @@ bool Parse::cargarClientes(std::vector<Cliente>& clientes){
   std::string telefonoCliente;
   
   //Abre el archivo
-  std::ifstream archivo("Banco.json");
+  std::ifstream archivo("Data/Banco.json");
   
   //de no abrir, retorna false
   if(!archivo.is_open()){
@@ -74,10 +74,10 @@ bool Parse::cargarCuentas(std::vector(Cuenta)& cuentas){
   std::string saldo;
   long limiteSobregiro;
   double tasainteres;
-  std::string tipoTitular;
+  std::string tipoCuenta;
   
   //abrir archivo
-  std::ifstream archivo("Banco.json");
+  std::ifstream archivo("Data/Banco.json");
   
   //verificar que abrió 
   if (!archivo.is_open()){
@@ -89,25 +89,28 @@ bool Parse::cargarCuentas(std::vector(Cuenta)& cuentas){
   Json bancoJson = json::parse(archivo);
   
   for(autor& titular: bancoJson["banco"]["titular"]){
-    tipoTitular = titular["tipoTitular"];
     
+    tipoCuenta = titular["cliente"]["tipoCuenta"];
     //Verifica que tipo de titular es, para espeficar el tipo de cuenta
-    if (tipoTitular == "CuentaCorriente"){
-      idTitular = titular["idTitular"];
-      id = titular["id"];
-      saldo = titular["saldo"];
-      limiteSobregiro = titular["limiteSobregiro"];
+    if (tipoCuenta == "CuentaCorriente"){
+      idTitular = titular["cuenta"]["idTitular"];
+      id = titular["cuenta"]["id"];
+      saldo = titular["cuenta"]["saldo"];
+      limiteSobregiro = titular["cuenta"]["limiteSobregiro"];
       //crea el objeto y lo ingresa
-      CuentaCorriente cuenta(idTitular, id, saldo, limiteSobregiro);
+      CuentaCorriente cuenta(idTitular, id, saldo, tipoCuenta);
+      cuenta.setLimiteSobregiro(limiteSobregiro);
       cuentas.push_back(cuenta);
     }
-    else if(tipoTitular == "CuentaAhorros"){
+    else if(tipoCuenta == "CuentaAhorros"){
       idTitular = titular["idTitular"];
       id = titular["id"];
       saldo = titular["saldo"];
       tasaInteres = titular["tasaInteres"];
+      tipoCuenta = 
       //crea el objeto y lo ingresa
-      CuentaAhorros cuenta(idTitular, id, saldo, tasaInteres);
+      CuentaAhorros cuenta(idTitular, id, saldo, tipoCuenta);
+      cuenta.setTasaInteres(tasaInteres);
       cuentas.push_back(cuenta);      
     }
   }//end for
@@ -123,7 +126,7 @@ bool cargarTitulares(Banco& banco, std::vector<Cliente>& clientes, std::vector<C
   std::vector<Titular> titulares;
   
   //abrir archivo
-  std::fstream archivo("Banco.json");
+  std::fstream archivo("Data/Banco.json");
   
   //Verificar que abrió
   if (!archivo.is_open()){
@@ -145,7 +148,7 @@ bool cargarTitulares(Banco& banco, std::vector<Cliente>& clientes, std::vector<C
           idTitular = titular["idTitular"];
           tipoTitular = titular["tipoTitular"];
           fechaVinculacion = titular["fechaVinculacion"]};
-          Titular titular(cliente&, cuenta&, idTitular, tipoTitular, fechaVinculacion);
+          Titular titular(&cliente, &cuenta, idTitular, tipoTitular, fechaVinculacion);
           titulares.push_back(titular);
         }
       }

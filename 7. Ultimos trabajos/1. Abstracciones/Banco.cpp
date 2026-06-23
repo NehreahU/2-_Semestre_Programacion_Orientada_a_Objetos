@@ -8,7 +8,7 @@ std::string Banco::getNombre(){
   return nombre;
 }
 
-void Banco::addTitularidad(Titularidad& titular){
+void Banco::addTitularidad(Titular titular){
   
 }
 

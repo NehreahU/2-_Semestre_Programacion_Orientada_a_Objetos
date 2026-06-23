@@ -1,7 +1,7 @@
 #include "Cuenta.h"
 #include <string>
 
-Cuenta::Cuenta(int auxIdTitular, std::string auxId, long auxSaldo):idTitular(auxIdTitular),id(auxId),saldo(auxSaldo){
+Cuenta::Cuenta(int auxIdTitular, std::string auxId, long auxSaldo, std::string auxTipo):idTitular(auxIdTitular),id(auxId),saldo(auxSaldo), tipoCuenta(auxTipo){
 }
 
 int Cuenta::getIdTitular(){

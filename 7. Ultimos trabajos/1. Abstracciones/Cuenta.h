@@ -8,9 +8,10 @@ private:
 int idTitular;
 std::string id;
 long saldo;
+std::string tipoCuenta;
 
 public:
-Cuenta(int idTitular, std::string auxId, long auxSaldo);
+Cuenta(int idTitular, std::string auxId, long auxSaldo, std::string auxTipo);
 int getIdTitular();
 std::string getNumeroCuenta();
 long getSaldo();

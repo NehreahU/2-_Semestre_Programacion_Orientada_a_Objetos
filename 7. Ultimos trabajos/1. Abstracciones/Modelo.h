@@ -1,0 +1,27 @@
+#ifndef MODELO_H
+#define MODELO_H
+#include "Banco.h"
+#include "Cliente"
+#include "cuentas"
+#include <vector>
+
+
+class Modelo {
+
+private:
+Banco banco;
+std::vector<Cliente> clientes; 
+std::vector<Cuenta> cuentas;
+
+public:
+Modelo();
+bool cargarBanco(); // cargarVectorCuentas(): void  //Carga un vector de cuentas de un json // cargarVectorClientes(): void //Carga un vector de clientes de un json
+void crearCuenta(int idTitular); //Se crea objeto cuenta y se envía al vector de cuentas.
+void crearCliente(); //Se crea un objeto cliente y se envía al vector cliente.
+void crearTitular(cliente: Cliente&, cuenta: Cuenta&); //se crea un objeto titular con dos ojetos Cliente&  y Cuenta& allá en titular el recibe titular(cliente*, cuenta*)
+void consignarDinero(int dinero,int idProceso);
+void retirarDinero(int dinero,int idProceso);
+int consultarSaldo(int idProceso);
+};
+
+#endif

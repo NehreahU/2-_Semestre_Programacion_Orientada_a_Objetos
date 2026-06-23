@@ -6,6 +6,8 @@
 
 class Parse{
 
+
+public:
 Parse();
 bool setNombreBanco(Banco& banco);
 bool cargarClientes(std::vector<Cliente>& clientes);
