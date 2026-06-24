@@ -4,7 +4,7 @@
 
 class Cuenta {
 
-private:
+protected:
 int idTitular;
 std::string id;
 long saldo;

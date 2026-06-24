@@ -53,8 +53,10 @@ void Controller::transferencia(){
         switch(opcion){
           case 1:
             modelo.consignarDinero(dinero, idTitular);
+            modelo.consultadSaldo(idTitular);
           case 2:
             modelo.retirarDinero(dinero, idTitular);
+            modelo.consultadSaldo(idTitular);
         }
       }
       else{

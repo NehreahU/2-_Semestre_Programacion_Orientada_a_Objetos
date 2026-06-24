@@ -8,7 +8,7 @@ private:
 long limiteSobregiro;
 
 public:
-CuentaCorriente(int auxIdTitular, const std::string& auxID, long auxSaldo, const std::string& auxTipo);
+CuentaCorriente(int auxIdTitular, const std::string& auxId, long auxSaldo, const std::string& auxTipo);
 void setLimiteSobregiro(long limite);
 long getLimiteSobregiro();
 bool retirarDinero(long cantidad) override;

@@ -1,10 +1,16 @@
 #include "Parse.h"
+#include "CuentaAhorros.h"
+#include "CuentaCorriente.h"
+
 #include <nlohmann/json.hpp>
 #include <fstream>
+#include <iostream>
 using Json = nlohmann::json;
 
+Parse::Parse(){
+}
 
-bool Parse::crearBanco(Banco& banco){
+bool Parse::cargarBanco(Banco& banco){
   
   std::string nombreBanco;
   
@@ -14,11 +20,11 @@ bool Parse::crearBanco(Banco& banco){
   //de no abrir, retorna false
   if(!archivo.is_open()){
     std::cerr<<"Error no se abrió el archivo"<<std::endl;
-    return 1;
+    return false;
   }
   
   //Crea un archivo tipo Json llamado banco y mete todo lo que tiene el archivo.json en el.
-  Json bancojson = json::parse(archivo);
+  Json bancojson = Json::parse(archivo);
   //Ya tengo mi Json banco, entonces cierro el archivo
   archivo.close();
   
@@ -44,21 +50,21 @@ void Parse::cargarClientes(std::vector<Cliente>& clientes){
   //de no abrir, retorna false
   if(!archivo.is_open()){
     std::cerr<<"Error el archivo no abrió"<<std::endl;
-    return 1;
   }
   
   //Crea un archivo tipo Json llamado banco y mete todo lo que tiene el archivo.json en el.
-  Json bancojosn = json::parse(archivo);
+  Json bancojson = Json::parse(archivo);
   
   //Ya tengo mi Json banco, entonces cierro el archivo
   archivo.close();
 
   //un for simple, busca en cada titular, los atributos del cliente y los usa para crear un objeto cliente que se ingresa al vector clientes
   for (auto& titular: bancojson["banco"]["titular"]){
+    idTitular = titular["cliente"]["idTitular"];
     identificacionCliente = titular["cliente"]["identificacion"];
     nombreCliente = titular["cliente"]["nombre"];
     telefonoCliente = titular["cliente"]["telefono"];
-    Cliente cliente(identificacionCliente, nombreCliente, telefonoCliente);
+    Cliente cliente(idTitular, identificacionCliente, nombreCliente, telefonoCliente);
     clientes.push_back(cliente);
   }
 }
@@ -66,13 +72,13 @@ void Parse::cargarClientes(std::vector<Cliente>& clientes){
 
 
 
-void Parse::cargarCuentas(std::vector(Cuenta)& cuentas){
+void Parse::cargarCuentas(std::vector<Cuenta>& cuentas){
   //atributos clientes
   int idTitular;
   std::string id;
-  std::string saldo;
+  long saldo;
   long limiteSobregiro;
-  double tasainteres;
+  double tasaInteres;
   std::string tipoCuenta;
   
   //abrir archivo
@@ -81,13 +87,12 @@ void Parse::cargarCuentas(std::vector(Cuenta)& cuentas){
   //verificar que abrió 
   if (!archivo.is_open()){
     std::cerr<<"Error. El archivo no se abrió"<<std::endl;
-    return 1;
   }
   
   //creo mi objeto tipo json
-  Json bancoJson = json::parse(archivo);
+  Json bancoJson = Json::parse(archivo);
   
-  for(autor& titular: bancoJson["banco"]["titular"]){
+  for(auto& titular: bancoJson["banco"]["titular"]){
     
     tipoCuenta = titular["cliente"]["tipoCuenta"];
     //Verifica que tipo de titular es, para espeficar el tipo de cuenta
@@ -106,7 +111,6 @@ void Parse::cargarCuentas(std::vector(Cuenta)& cuentas){
       id = titular["id"];
       saldo = titular["saldo"];
       tasaInteres = titular["tasaInteres"];
-      tipoCuenta = 
       //crea el objeto y lo ingresa
       CuentaAhorros cuenta(idTitular, id, saldo, tipoCuenta);
       cuenta.setTasaInteres(tasaInteres);
@@ -116,7 +120,7 @@ void Parse::cargarCuentas(std::vector(Cuenta)& cuentas){
 }
 
 
-void cargarTitulares(Banco& banco, std::vector<Cliente>& clientes, std::vector<Cuenta>& cuentas){
+void Parse::cargarTitulares(Banco& banco, std::vector<Cliente>& clientes, std::vector<Cuenta>& cuentas){
   //Atributos titular
   int idTitular;
   std::string tipoTitular;
@@ -124,28 +128,28 @@ void cargarTitulares(Banco& banco, std::vector<Cliente>& clientes, std::vector<C
   std::vector<Titular> titulares;
   
   //abrir archivo
-  std::fstream archivo("Data/Banco.json");
+  std::ifstream archivo("Data/Banco.json");
   
   //Verificar que abrió
   if (!archivo.is_open()){
     std::cerr<<"Error al abrir el archivo"<<std::endl;
-    return 1;
   }
   
   //Crear Json
-  Json banco = json::parse(archivo);
+  Json bancoJson;
+  archivo>>bancoJson
   
   //cerrar archivo
   archivo.close();
   
-  for (auto& titular: banco["banco"]["titular"])
+  for (auto& titular: bancoJson["banco"]["titular"]){
     for(auto& cliente: clientes){
      if(titular["idTitular"] == cliente.getIdTitular()){
       for(auto& cuenta: cuentas){
-        if (titular["idTitular"] == cuenta.getIdtitular()){
+        if (titular["idTitular"] == cuenta.getIdTitular()){
           idTitular = titular["idTitular"];
           tipoTitular = titular["tipoTitular"];
-          fechaVinculacion = titular["fechaVinculacion"]};
+          fechaVinculacion = titular["fechaVinculacion"];
           Titular titular(&cliente, &cuenta, idTitular, tipoTitular, fechaVinculacion);
           titulares.push_back(titular);
         }
@@ -154,4 +158,20 @@ void cargarTitulares(Banco& banco, std::vector<Cliente>& clientes, std::vector<C
     }
    }
   banco.setTitulares(titulares);
+}
+
+
+void Parse::guardar(Banco& banco, std::vector<Cliente>& clientes, std::vector<Cuenta>& cuentas){
+  Json bancoJson;
+  
+  for(auto& cliente: clientes){
+      for(auto& cuenta: cuentas){
+        if(cliente.getIdTitular == cuenta.getIdTitular){
+          Titular titular = banco.getTitular(cliente.getIdTitular);
+          banco["banco"]["nombre"] = banco.getNombre();
+          
+          banco["banco"]["titular"] =
+        }
+      }
+  }
 }

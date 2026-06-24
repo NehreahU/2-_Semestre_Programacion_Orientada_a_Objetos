@@ -1,26 +1,28 @@
 #include "Modelo.h"
 #include "Parse.h"
+#include "CuentaAhorros.h"
+#include "CuentaCorriente.h"
 #include <iostream>
 #include <string>
 
 
-Modelo::Modelo(){
+Modelo::Modelo(): banco("NN"){
 }
 
 bool Modelo::cargarBanco(){
   Parse parse;
-  if(parse.setNombreBanco(banco)){
+  if(parse.cargarBanco(banco)){
     parse.cargarClientes(clientes);
     parse.cargarCuentas(cuentas);
-    parse.cargarTitulares(banco);
+    parse.cargarTitulares(banco,clientes, cuentas);
     return true;
   }
   else {
-    false;
+   return false;
   }
 }
 
-void Banco::crearBanco(){
+void Modelo::crearBanco(){
   std::string nombre;
   std::cout<<"Ingrese el nombre de su Banco: ";
   std::getline(std::cin, nombre);
@@ -33,7 +35,7 @@ bool Modelo::verificarTitular(int idTitular){
     return true;
   }
   else{
-    false;
+   return false;
   }
 }
 
@@ -45,23 +47,29 @@ Cuenta& Modelo::crearCuenta(int idTitular){ //Se crea objeto cuenta y se envía 
   
   
   std::cout<<"Ingrese el ID de la cuenta"<<std::endl;
-  std::getline(std::cin,id)
+  std::getline(std::cin,id);
   
   std::cout<<"Ingrese el saldo con el que inicia la cuenta"<<std::endl;
   std::cin>>saldo;
   
-  std::cout<<"Ingrese el tipo de cuenta: \n1. Cuenta de ahorros. \n2. Cuenta Corriente."<<std::endl;
+  std::cout<<"Ingrese el tipo de cuenta: 1. Cuenta de ahorros. 2. Cuenta Corriente."<<std::endl;
   std::cin>>tipoCuenta;
-
+  
   switch (tipoCuenta){
-  case 1:
-    CuentaAhorros cuenta(idTitular, id, saldo, tipoCuenta);
-    cuentas.push_back(cuenta);
-    return cuentas.back();
-  case 2:
-    CuentaCorriente cuenta(idTitular, id, saldo, tipoCuenta);
-    cuentas.push_back(cuenta);
-    return cuentas.back();
+    case 1:{
+      CuentaAhorros cuenta(idTitular, id, saldo, "CuentaAhorros");
+      cuentas.push_back(cuenta);
+      return cuentas.back();
+      break;
+    }
+    case 2:{
+      CuentaCorriente cuenta(idTitular, id, saldo, "CuentaCorriente");
+      cuentas.push_back(cuenta);
+      return cuentas.back();
+    }
+    default:{
+      throw std::invalid_argument("Error");
+    }
   }
 }
 
@@ -92,15 +100,15 @@ void Modelo::crearTitular(int idTitular, Cliente& cliente, Cuenta& cuenta){     
   std::string tipoTitular;
   std::string fechaVinculacion;
   
-  std::cout<<"Qué tipo de titularidad tiene"std::endl;
+  std::cout<<"Qué tipo de titularidad tiene"<<std::endl;
   std::getline(std::cin, tipoTitular);
   
-  std::cout<<"Escriba la fecha de vinculación"std::endl;
+  std::cout<<"Escriba la fecha de vinculación"<<std::endl;
   std::getline(std::cin, fechaVinculacion);
   for(auto& cu: cuentas){
-      if(cu.getIdTitular == idTitular){
+      if(cu.getIdTitular() == idTitular){
         for(auto& cli: clientes){
-          if(cli.getIdTitular == idTitular){
+          if(cli.getIdTitular() == idTitular){
               Titular titular(&cli, &cu, idTitular, tipoTitular,fechaVinculacion);
               banco.addTitular(titular); 
           }
@@ -131,8 +139,9 @@ void Modelo::retirarDinero(int dinero,int idProceso){
 
 int Modelo::consultarSaldo(int idProceso){
   for(auto& cuenta: cuentas){
-    if(cuenta.getIdTitular == idProceso){
-      cuneta.consultarSaldo();
+    if(cuenta.getIdTitular() == idProceso){
+      return cuenta.getSaldo();
     }
   }
+  return 0;
 }

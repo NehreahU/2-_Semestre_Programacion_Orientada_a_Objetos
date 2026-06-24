@@ -1,12 +1,7 @@
 #include "Titular.h"
 
 
-Titular(Cliente* auxCliente,Cuenta* auxCuenta,,int auxID,std::string auxTipo,std::string auxFecha):
-                                                                                            cliente(auxCliente),
-                                                                                            cuenta(auxCuenta),
-                                                                                            idTitular(auxID)
-                                                                                            tipoTitular(auxTipo),
-                                                                                            fechaVinculacion(auxFecha){
+Titular::Titular(Cliente* auxCliente,Cuenta* auxCuenta,int auxID,std::string auxTipo,std::string auxFecha): cliente(auxCliente),cuenta(auxCuenta),idTitular(auxID), tipoTitular(auxTipo),fechaVinculacion(auxFecha){
 
 }
 
@@ -23,7 +18,7 @@ Cliente* Titular::getCliente(){
 }
 
 Cuenta* Titular::getCuenta(){
- return cuenta:
+ return cuenta;
 }
 
 int Titular::getIdTitular(){

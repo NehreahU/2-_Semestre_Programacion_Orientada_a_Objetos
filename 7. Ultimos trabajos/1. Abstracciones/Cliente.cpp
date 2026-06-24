@@ -30,3 +30,6 @@ void Cliente::setNombre(std::string auxNombre){
 void Cliente::setTelefono(std::string auxTelefono){
  telefono = auxTelefono;
 }
+
+Cliente::~Cliente(){
+}

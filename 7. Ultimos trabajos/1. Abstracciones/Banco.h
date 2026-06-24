@@ -11,9 +11,10 @@ std::string nombre;
 std::vector<Titular> titulares;
 
 public:
-Banco(std::string auxNombre);
+Banco(std::string auxNombre); 
 
 std::string getNombre();
+Titular& getTitular(int idTitular);
 
 bool verificarTitular(int idTitular);
 

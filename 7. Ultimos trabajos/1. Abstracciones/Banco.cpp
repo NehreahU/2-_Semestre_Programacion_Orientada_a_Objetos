@@ -8,6 +8,14 @@ std::string Banco::getNombre(){
   return nombre;
 }
 
+Titular& Banco::getTitular(int idTitular){
+  for (auto& titular: titulares){
+    if(titular.getIdTitular()== idTitular){
+      return titular; 
+    }
+  }
+}
+
 bool Banco::verificarTitular(int idTitular){
   for (auto& titular: titulares){
     if(titular.getIdTitular()== idTitular){

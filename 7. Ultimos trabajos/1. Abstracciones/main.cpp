@@ -1,6 +1,7 @@
 #include "Controller.h"
 #include "Modelo.h"
 #include "View.h"
+#include <iostream>
 
 
 int main(){
@@ -20,7 +21,7 @@ int main(){
       control.añadirUsuario();
       break;
     case 2:
-      control.transferir();
+      control.transferencia ();
   }
 
 

@@ -1,6 +1,6 @@
 #include"CuentaCorriente.h"
 
-CuentaCorriente::CuentaCorriente(int auxIdTitular, const std::string& auxID, long auxSaldo, const std::string& auxTipo):Cuenta(auxIdTitular,auxId,auxSaldo, auxTipo)){
+CuentaCorriente::CuentaCorriente(int auxIdTitular, const std::string& auxId, long auxSaldo, const std::string& auxTipo):Cuenta(auxIdTitular,auxId,auxSaldo, auxTipo){
   limiteSobregiro = 120000;
 }
 
