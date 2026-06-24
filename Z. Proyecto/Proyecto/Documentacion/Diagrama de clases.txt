@@ -143,3 +143,7 @@ View <|-- ViewConsola
 View <|-- ViewSFML
 View ..> Tablero
 @enduml	
+
+
+
+VER SI PUEDO HACER QUE VIEW HEREDE DE MODEL Y DE CONTROLLER.
