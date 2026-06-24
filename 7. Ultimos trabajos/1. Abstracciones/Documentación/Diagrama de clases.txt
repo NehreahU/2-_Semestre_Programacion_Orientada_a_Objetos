@@ -3,7 +3,7 @@ title Diagrama de Clases - Sistema Bancario
 left to right direction
 ' ==== CLASE CLIENTE ====
 class Cliente {
-- idTitular: int
+- idTitular: int	
 - identificacion : string
 - nombre : string
 - telefono : string

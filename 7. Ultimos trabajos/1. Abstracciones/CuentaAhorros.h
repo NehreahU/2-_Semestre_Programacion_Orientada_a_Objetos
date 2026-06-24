@@ -8,7 +8,7 @@ private:
 double tasaInteres;
 
 public:
-CuentaAhorros(std::string auxId, long auxSaldo, std::string auxTipo);
+CuentaAhorros(int auxIdTitular, const std::string& auxId, long auxSaldo, const std::string& auxTipo);
 void setTasaInteres(double auxInteres);
 void aplicarInteres();
 

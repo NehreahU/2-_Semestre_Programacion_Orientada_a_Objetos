@@ -10,8 +10,8 @@ class Parse{
 public:
 Parse();
 bool setNombreBanco(Banco& banco);
-bool cargarClientes(std::vector<Cliente>& clientes);
-bool cargarCuentas(std::vector<Cuenta>& cuentas);
+void cargarClientes(std::vector<Cliente>& clientes);
+void cargarCuentas(std::vector<Cuenta>& cuentas);
 
 void cargarTitulares(Banco& banco);
 

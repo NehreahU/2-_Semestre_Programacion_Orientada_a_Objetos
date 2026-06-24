@@ -7,18 +7,38 @@
 Modelo::Modelo(){
 }
 
-bool cargarBanco(){
+bool Modelo::cargarBanco(){
   Parse parse;
-  parse.setNombreBanco(banco);
-  parse.cargarClientes(clientes);
-  parse.cargarCuentas(cuentas);
-  parse.cargarTitulares(banco);
+  if(parse.setNombreBanco(banco)){
+    parse.cargarClientes(clientes);
+    parse.cargarCuentas(cuentas);
+    parse.cargarTitulares(banco);
+    return true;
+  }
+  else {
+    false;
+  }
+}
+
+void Banco::crearBanco(){
+  std::string nombre;
+  std::cout<<"Ingrese el nombre de su Banco: ";
+  std::getline(std::cin, nombre);
+  banco.setNombre(nombre);
 }
 
 
+bool Modelo::verificarTitular(int idTitular){
+  if(banco.verificarTitular(idTitular)){
+    return true;
+  }
+  else{
+    false;
+  }
+}
 
 
-void crearCuenta(int idTitular){ //Se crea objeto cuenta y se envía al vector de cuentas.
+Cuenta& Modelo::crearCuenta(int idTitular){ //Se crea objeto cuenta y se envía al vector de cuentas.
   std::string id;
   long saldo;
   int tipoCuenta;
@@ -31,21 +51,23 @@ void crearCuenta(int idTitular){ //Se crea objeto cuenta y se envía al vector d
   std::cin>>saldo;
   
   std::cout<<"Ingrese el tipo de cuenta: \n1. Cuenta de ahorros. \n2. Cuenta Corriente."<<std::endl;
-  std::cin<<tipoCuenta;
-  
+  std::cin>>tipoCuenta;
+
   switch (tipoCuenta){
   case 1:
     CuentaAhorros cuenta(idTitular, id, saldo, tipoCuenta);
-    break
+    cuentas.push_back(cuenta);
+    return cuentas.back();
   case 2:
     CuentaCorriente cuenta(idTitular, id, saldo, tipoCuenta);
+    cuentas.push_back(cuenta);
+    return cuentas.back();
   }
-  cuentas.push_back(cuenta);
 }
 
 
 
-void crearCliente(int idTitular){ //Se crea un objeto cliente y se envía al vector cliente.
+Cliente& Modelo::crearCliente(int idTitular){ //Se crea un objeto cliente y se envía al vector cliente.
   std::string identificacion;
   std::string nombre;
   std::string telefono;
@@ -61,11 +83,12 @@ void crearCliente(int idTitular){ //Se crea un objeto cliente y se envía al vec
   
   Cliente cliente(idTitular, identificacion,nombre,telefono);
   clientes.push_back(cliente);
+  return clientes.back();
 
 }
 
 
-void crearTitular(int idTitular){                          //se crea un objeto titular con dos ojetos Cliente&  y Cuenta& allá en titular el recibe titular(cliente*, cuenta*)
+void Modelo::crearTitular(int idTitular, Cliente& cliente, Cuenta& cuenta){                          //se crea un objeto titular con dos ojetos Cliente&  y Cuenta& allá en titular el recibe titular(cliente*, cuenta*)
   std::string tipoTitular;
   std::string fechaVinculacion;
   
@@ -89,7 +112,7 @@ void crearTitular(int idTitular){                          //se crea un objeto t
 
 
 
-void consignarDinero(int dinero, int idProceso){
+void Modelo::consignarDinero(int dinero, int idProceso){
   for (auto& cuenta: cuentas){
     if(cuenta.getIdTitular() == idProceso){
       cuenta.consignarDinero(dinero);
@@ -97,7 +120,7 @@ void consignarDinero(int dinero, int idProceso){
   }
 }
 
-void retirarDinero(int dinero,int idProceso){
+void Modelo::retirarDinero(int dinero,int idProceso){
   for(auto& cuenta: cuentas){
     if(cuenta.getIdTitular() == idProceso){
       cuenta.retirarDinero(dinero);
@@ -105,11 +128,11 @@ void retirarDinero(int dinero,int idProceso){
   }
 }
 
-int consultarSaldo(int idProceso){
+
+int Modelo::consultarSaldo(int idProceso){
   for(auto& cuenta: cuentas){
     if(cuenta.getIdTitular == idProceso){
       cuneta.consultarSaldo();
     }
   }
-
 }

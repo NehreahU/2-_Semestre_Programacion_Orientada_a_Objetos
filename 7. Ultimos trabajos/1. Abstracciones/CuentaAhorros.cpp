@@ -1,15 +1,15 @@
 #include "CuentaAhorros.h"
 
-CuentaAhorros(std::string auxId, long auxSaldo, std::string auxTipo):cuenta(auxId, auxSaldo, auxTipo){
+CuentaAhorros::CuentaAhorros(int auxIdTitular, const std::string& auxId, long auxSaldo, const std::string& auxTipo):Cuenta(auxIdTitular,auxId, auxSaldo, auxTipo){
   tasaInteres = 2.5;
 }
 
-void setTasaInteres(double auxInteres){
+void CuentaAhorros::setTasaInteres(double auxInteres){
  tasaInteres = auxInteres; 
 }
 
 
-void aplicarInteres(){
+void CuentaAhorros::aplicarInteres(){
   saldo += saldo*tasaInteres;
 }
 

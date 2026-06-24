@@ -23,5 +23,9 @@ Cliente* Titular::getCliente(){
 }
 
 Cuenta* Titular::getCuenta(){
- return cuentaM
+ return cuenta:
+}
+
+int Titular::getIdTitular(){
+  return idTitular;
 }

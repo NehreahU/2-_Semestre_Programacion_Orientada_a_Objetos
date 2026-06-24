@@ -1,4 +1,4 @@
-#include "cliente.h"
+#include "Cliente.h"
 
 Cliente::Cliente(int auxIdTitular, std::string auxIdentificacion,std::string auxNombre,std::string auxTelefono): idTitular(auxIdTitular), identificacion(auxIdentificacion), nombre(auxNombre), telefono(auxTelefono){
 }
@@ -20,13 +20,13 @@ std::string Cliente::getTelefono(){
 }
 
 void Cliente::setIdentificacion(std::string codigo){
-  id = codigo;
+  identificacion = codigo;
 }
 
 void Cliente::setNombre(std::string auxNombre){
- nombre = auxNombre
+ nombre = auxNombre;
 }
 
-void Cliente::setTelefono(auNombre auxTelefono){
+void Cliente::setTelefono(std::string auxTelefono){
  telefono = auxTelefono;
 }

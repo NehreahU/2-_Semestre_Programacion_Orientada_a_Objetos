@@ -7,10 +7,10 @@
 class Titular{
 
 private:
-idTitular : int
+int idTitular;
 std::string tipoTitular;
 std::string fechaVinculacion;
-Cliente*: cliente;
+Cliente* cliente;
 Cuenta* cuenta;
 
 public:
@@ -19,7 +19,7 @@ std::string getTipoTitular();
 std::string getFechaVinculacion();
 Cliente* getCliente();
 Cuenta* getCuenta(); 
-
+int getIdTitular();
 };
 
 #endif

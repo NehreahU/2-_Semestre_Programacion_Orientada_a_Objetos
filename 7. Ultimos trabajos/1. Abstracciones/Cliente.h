@@ -2,7 +2,7 @@
 #define CLIENTE_H
 #include <string>
 
-class{
+class Cliente{
 private:
 int idTitular;
 std::string identificacion, nombre, telefono;
@@ -12,10 +12,10 @@ Cliente(int auxIdTitular, std::string auxIdentificacion, std::string auxNombre, 
 int getIdTitular();
 std::string getIdentificacion();
 std::string getNombre();
-std::string getTelefono()
+std::string getTelefono();
 void setIdentificacion(std::string codigo);
-void setNombre(nombre : string);
-void setTelefono(telefono : string);
+void setNombre(std::string auxNombre);
+void setTelefono(std::string auxTelefono);
 ~Cliente();
 };
 

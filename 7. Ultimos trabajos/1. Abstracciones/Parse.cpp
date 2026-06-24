@@ -14,7 +14,7 @@ bool Parse::crearBanco(Banco& banco){
   //de no abrir, retorna false
   if(!archivo.is_open()){
     std::cerr<<"Error no se abrió el archivo"<<std::endl;
-    return false;
+    return 1;
   }
   
   //Crea un archivo tipo Json llamado banco y mete todo lo que tiene el archivo.json en el.
@@ -31,7 +31,7 @@ bool Parse::crearBanco(Banco& banco){
   
 
 
-bool Parse::cargarClientes(std::vector<Cliente>& clientes){
+void Parse::cargarClientes(std::vector<Cliente>& clientes){
   int idTitular;
   //atributos de cliente
   std::string identificacionCliente;
@@ -44,7 +44,7 @@ bool Parse::cargarClientes(std::vector<Cliente>& clientes){
   //de no abrir, retorna false
   if(!archivo.is_open()){
     std::cerr<<"Error el archivo no abrió"<<std::endl;
-    return false;
+    return 1;
   }
   
   //Crea un archivo tipo Json llamado banco y mete todo lo que tiene el archivo.json en el.
@@ -61,13 +61,12 @@ bool Parse::cargarClientes(std::vector<Cliente>& clientes){
     Cliente cliente(identificacionCliente, nombreCliente, telefonoCliente);
     clientes.push_back(cliente);
   }
-  return true;
 }
 
 
 
 
-bool Parse::cargarCuentas(std::vector(Cuenta)& cuentas){
+void Parse::cargarCuentas(std::vector(Cuenta)& cuentas){
   //atributos clientes
   int idTitular;
   std::string id;
@@ -82,7 +81,7 @@ bool Parse::cargarCuentas(std::vector(Cuenta)& cuentas){
   //verificar que abrió 
   if (!archivo.is_open()){
     std::cerr<<"Error. El archivo no se abrió"<<std::endl;
-    return false;
+    return 1;
   }
   
   //creo mi objeto tipo json
@@ -114,11 +113,10 @@ bool Parse::cargarCuentas(std::vector(Cuenta)& cuentas){
       cuentas.push_back(cuenta);      
     }
   }//end for
-  return true;
 }
 
 
-bool cargarTitulares(Banco& banco, std::vector<Cliente>& clientes, std::vector<Cuenta>& cuentas){
+void cargarTitulares(Banco& banco, std::vector<Cliente>& clientes, std::vector<Cuenta>& cuentas){
   //Atributos titular
   int idTitular;
   std::string tipoTitular;
@@ -156,5 +154,4 @@ bool cargarTitulares(Banco& banco, std::vector<Cliente>& clientes, std::vector<C
     }
    }
   banco.setTitulares(titulares);
-  return true;
 }

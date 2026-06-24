@@ -11,7 +11,7 @@ left to right direction
 ' ==== CLASE CLIENTE ====
 class Controller {
 -
-+Controller
++Controller(vista: View&, modelo: Modelo&)
 +iniciarSistema() //Crea un objeto model, el model contiene el banco, so... iniciar el banco.
 +añadirUsuario() //Solicita la informacion del titular, Crea cliente, cuenta y crea un titular con estos dos ultimos y la información del titular
 +transferencia()
@@ -49,13 +49,10 @@ class Modelo {
 
 ' ==== CLASE CLIENTE ====
 class View {
--0. Banco Renea (banco.getNombre)
--1. Agregar usuario 
--2. Consinar dinero
--3. Retirar dinero
---
-+mostrarTitular()
-+
++pantallaDeIngreso();
++mostrarBanco();
++Agregar usuario 
++transferencia
 }
 
 

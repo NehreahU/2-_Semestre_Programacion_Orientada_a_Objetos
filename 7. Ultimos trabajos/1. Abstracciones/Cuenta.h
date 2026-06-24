@@ -11,7 +11,7 @@ long saldo;
 std::string tipoCuenta;
 
 public:
-Cuenta(int idTitular, std::string auxId, long auxSaldo, std::string auxTipo);
+Cuenta(int idTitular, const std::string& auxId, long auxSaldo, const std::string& auxTipo);
 int getIdTitular();
 std::string getNumeroCuenta();
 long getSaldo();

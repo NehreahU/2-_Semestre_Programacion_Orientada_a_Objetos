@@ -1,5 +1,9 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
+#include "View.h"
+#include "Modelo.h"
+
+
 
 class Controller{
 
@@ -10,15 +14,13 @@ Modelo& modelo;
 
 public:
 
-Controller();
+Controller(View& auxVista, Modelo& auxModelo);
 
-añadirCliente(){
-modelo.crearCliente(idtitular)
-modelo.crearCuenta(idTitular)
-modelo.crearTitular(idTitular, cliente, cuenta)
+void iniciarSistema();
 
-}
-verificarTitular();
+void añadirUsuario();
+
+void transferencia();
 
 
 };
