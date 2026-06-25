@@ -15,7 +15,7 @@ void cargarCuentas(std::vector<Cuenta>& cuentas);
 
 void cargarTitulares(Banco& banco, std::vector<Cliente>& clientes, std::vector<Cuenta>& cuentas);
 
-void guardar(Banco& banco, std::vector<Cliente>& clientes, std::vector<Cuenta>& cuentas);
+void guardar(Banco& banco);
 
 };
 

@@ -25,13 +25,37 @@ void Controller::añadirUsuario(){
       std::cin>>idTitular;
       
       if(!(modelo.verificarTitular(idTitular))){
-        Cuenta& cuenta = modelo.crearCuenta(idTitular);  
-        Cliente& cliente = modelo.crearCliente(idTitular);
-        modelo.crearTitular(idTitular, cliente, cuenta);
+        modelo.crearTitular(idTitular);
+        modelo.crearCuenta(idTitular);  
+        modelo.crearCliente(idTitular);
       }
       else {
         std::cout<<"Ya hay un usuario con ese id de titularidad";
       }
+}
+
+void añadirCuenta(){
+    int idTitular;
+    std::cout<<"Ingrese el id del titular que desea ingresar. "<<std::endl;
+    std::cin>>idTitular;
+    if(modelo.verificarTitular(idTitular)){
+      contro.crearCuenta(idTitular);
+    }
+    else {
+      std::cout"No hay ningún titular con ese ID"<<std::endl;
+    }
+}
+
+void añadirCliente(){
+    int idTitular;
+    std::cout<<"Ingrese el id del titular que desea ingresar. "<<std::endl;
+    std::cin>>idTitular;
+    if(modelo.verificarTitular(idTitular)){
+      contro.crearCliente(idTitular);
+    }
+    else {
+      std::cout"No hay ningún titular con ese ID"<<std::endl;
+    }
 }
 
 

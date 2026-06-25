@@ -15,6 +15,7 @@ Banco(std::string auxNombre);
 
 std::string getNombre();
 Titular& getTitular(int idTitular);
+std::vector<Titular>& getTitulares();s
 
 bool verificarTitular(int idTitular);
 

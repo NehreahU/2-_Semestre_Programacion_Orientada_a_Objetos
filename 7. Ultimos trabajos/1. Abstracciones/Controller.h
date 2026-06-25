@@ -20,6 +20,10 @@ void iniciarSistema();
 
 void añadirUsuario();
 
+void añadirCuenta();
+
+void añadirCliente();
+
 void transferencia();
 
 

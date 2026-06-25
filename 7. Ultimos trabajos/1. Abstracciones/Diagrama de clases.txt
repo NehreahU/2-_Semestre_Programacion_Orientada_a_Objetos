@@ -1,0 +1,156 @@
+@startuml
+
+@startuml
+title Diagrama de Clases - Sistema Bancario
+left to right direction
+
+
+
+
+
+
+
+' ==== CLASE CLIENTE ====
+class Controller {
+-
++Controller(vista: View&, modelo: Modelo&)
++iniciarSistema() //Crea un objeto model, el model contiene el banco, so... iniciar el banco.
++añadirUsuario() //Solicita la informacion del titular, Crea cliente, cuenta y crea un titular con estos dos ultimos y la información del titular
++transferencia()
+}
+
+
+
+
+
+
+
+
+
+' ==== CLASE CLIENTE ====
+class Modelo {
+-banco: Banco
+-clientes: vector<Cliente>
+-Cuentas: vector<Cuenta>
+--
++Modelo();
++cargarBanco(): bool 
++crearCuenta(): void //Se crea objeto cuenta y se envía al vector de cuentas.
++crearCliente(): void //Se crea un objeto cliente y se envía al vector cliente.
++crearTitular(cliente: Cliente&, cuenta: Cuenta&): void se crea un objeto titular con dos ojetos Cliente&  y Cuenta& allá en titular el recibe titular(cliente*, cuenta*)
++consignarDinero(int dinero): void
++retirarDinero(int dinero): void
++consultarSaldo(): int
+}
+
+
+
+
+
+
+
+' ==== CLASE CLIENTE ====
+class View {
++pantallaDeIngreso();
++mostrarBanco();
++Agregar usuario 
++transferencia
+}
+
+
+
+
+
+
+
+
+' ==== CLASE PARSE ====
+Class Parse{
++bool setNombreBanco(Banco& banco);
++bool cargarClientes(std::vector<Cliente>& clientes);
++bool cargarCuentas(std::vector<Cuenta>& cuentas);
+
++void cargarTitulares(Banco& banco);
+}
+@enduml
+
+title Diagrama de Clases - Sistema Bancario
+left to right direction
+' ==== CLASE CLIENTE ====
+class Cliente {
+- idTitular: int	
+- identificacion : string
+- nombre : string
+- telefono : string
+--
++ Cliente(identificacion : string, nombre : string, telefono : string)
++ getIdentificacion() : string
++ getNombre() : string
++ getTelefono() : string
++ setIdentificacion(codigo : string) : void
++ setNombre(nombre : string) : void
++ setTelefono(telefono : string) : void
+}
+' ==== CLASE CUENTA (BASE) ====
+class Cuenta {
+- idTitular: int
+- id : string
+- saldo : long
+--
++ Cuenta(id : string, saldo : long)
++ getNumeroCuenta() : string
++ getSaldo() : long
++ setNumeroCuenta(id : string) : void
++ setSaldo(saldo : long) : void
++ retirarDinero(cantidad : long) : bool
++ consignarDinero(cantidad : long) : void
+}
+' ==== SUBCLASES DE CUENTA ====
+skinparam groupInheritance 2
+class CuentaAhorros {
+- tasaInteres : double
+--
++ aplicarInteres() : void
+}
+class CuentaCorriente {
+- limiteSobregiro : long
+--
++ setLimiteSobregiro(limite : long) : void
++ getLimiteSobregiro() : long
++ retirarDinero(cantidad : long) : bool
+}
+CuentaAhorros -|> Cuenta
+CuentaCorriente -|> Cuenta
+' ==== CLASE TITULARIDAD (Asociativa) ====
+class Titularidad {
+- idTitular : int
+- tipoTitular : string
+- fechaVinculacion : string
+- cliente : Cliente*
+- cuenta : Cuenta*
+--
++ Titularidad(cliente : Cliente*, cuenta : Cuenta*,auxID: int, tipo : string, fecha : string)
++ getTipoTitular() : string
++ getFechaVinculacion() : string
++ getCliente() : Cliente*
++ getCuenta() : Cuenta*
+}
+' ==== CLASE BANCO ====
+class Banco {
+- nombre : string
+- titulares : vector<Titularidad>
+--
++ Banco(nombre : string)
++ getNombre() : string
++ addTitularidad(t : Titularidad) : void
++ addTitularidadReferencia(t : Titularidad&) : void
++ imprimirDatos() : void
++ calcularPromedio() : void
++ setNombre(auxNombre: string): void
+}
+' ==== RELACIONES ====
+Titularidad "1" --* "*" Banco : Contiene >
+Cliente "1" o-- "1..*" Titularidad : Conoce >
+Cuenta "1" o-- "1..*" Titularidad : Conoce >
+Titularidad : une Cliente y Cuenta
+@enduml

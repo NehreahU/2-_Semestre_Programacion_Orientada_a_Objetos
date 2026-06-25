@@ -16,6 +16,11 @@ Titular& Banco::getTitular(int idTitular){
   }
 }
 
+std::vector<Titular>& Banco::getTitulares(){
+    return titulares;
+}
+
+
 bool Banco::verificarTitular(int idTitular){
   for (auto& titular: titulares){
     if(titular.getIdTitular()== idTitular){

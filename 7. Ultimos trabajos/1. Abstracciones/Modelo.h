@@ -18,9 +18,9 @@ Modelo();
 bool cargarBanco(); // cargarVectorCuentas(): void  //Carga un vector de cuentas de un json // cargarVectorClientes(): void //Carga un vector de clientes de un json
 void crearBanco();
 bool verificarTitular(int idTitular);
-Cuenta& crearCuenta(int idTitular); //Se crea objeto cuenta y se envía al vector de cuentas.
-Cliente& crearCliente(int idTitular); //Se crea un objeto cliente y se envía al vector cliente.
-void crearTitular(int idTitular, Cliente& cliente,Cuenta& cuenta); //se crea un objeto titular con dos ojetos Cliente&  y Cuenta& allá en titular el recibe titular(cliente*, cuenta*)
+void crearTitular(int idTitular); //se crea un objeto titular con dos ojetos Cliente&  y Cuenta& allá en titular el recibe titular(cliente*, cuenta*)
+void crearCuenta(int idTitular); //Se crea objeto cuenta y se envía al vector de cuentas.
+void crearCliente(int idTitular); //Se crea un objeto cliente y se envía al vector cliente.
 void consignarDinero(int dinero,int idProceso);
 void retirarDinero(int dinero,int idProceso);
 int consultarSaldo(int idProceso);

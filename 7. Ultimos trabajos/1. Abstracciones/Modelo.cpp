@@ -14,7 +14,7 @@ bool Modelo::cargarBanco(){
   if(parse.cargarBanco(banco)){
     parse.cargarClientes(clientes);
     parse.cargarCuentas(cuentas);
-    parse.cargarTitulares(banco,clientes, cuentas);
+    parse.cargarTitulares(banco);
     return true;
   }
   else {
@@ -40,7 +40,23 @@ bool Modelo::verificarTitular(int idTitular){
 }
 
 
-Cuenta& Modelo::crearCuenta(int idTitular){ //Se crea objeto cuenta y se envía al vector de cuentas.
+void Modelo::crearTitular(int idTitular){                          //se crea un objeto titular con dos ojetos Cliente&  y Cuenta& allá en titular el recibe titular(cliente*, cuenta*)
+  std::string tipoTitular;
+  std::string fechaVinculacion;
+  
+  std::cout<<"Qué tipo de titularidad tiene"<<std::endl;
+  std::getline(std::cin, tipoTitular);
+  
+  std::cout<<"Escriba la fecha de vinculación"<<std::endl;
+  std::getline(std::cin, fechaVinculacion);
+  
+  Titular titular(idTitular, tipoTitular,fechaVinculacion);
+  banco.addTitular(titular); 
+}
+
+
+
+void Modelo::crearCuenta(int idTitular){ //Se crea objeto cuenta y se envía al vector de cuentas.
   std::string id;
   long saldo;
   int tipoCuenta;
@@ -59,13 +75,13 @@ Cuenta& Modelo::crearCuenta(int idTitular){ //Se crea objeto cuenta y se envía 
     case 1:{
       CuentaAhorros cuenta(idTitular, id, saldo, "CuentaAhorros");
       cuentas.push_back(cuenta);
-      return cuentas.back();
+      banco.getTitular(idTitular).addCuenta(&cuentas.back());
       break;
     }
     case 2:{
       CuentaCorriente cuenta(idTitular, id, saldo, "CuentaCorriente");
       cuentas.push_back(cuenta);
-      return cuentas.back();
+      banco.getTitular(idTitular).addCuenta(&cuentas.back());
     }
     default:{
       throw std::invalid_argument("Error");
@@ -75,7 +91,7 @@ Cuenta& Modelo::crearCuenta(int idTitular){ //Se crea objeto cuenta y se envía 
 
 
 
-Cliente& Modelo::crearCliente(int idTitular){ //Se crea un objeto cliente y se envía al vector cliente.
+void Modelo::crearCliente(int idTitular){ //Se crea un objeto cliente y se envía al vector cliente.
   std::string identificacion;
   std::string nombre;
   std::string telefono;
@@ -91,31 +107,10 @@ Cliente& Modelo::crearCliente(int idTitular){ //Se crea un objeto cliente y se e
   
   Cliente cliente(idTitular, identificacion,nombre,telefono);
   clientes.push_back(cliente);
-  return clientes.back();
+  banco.getTitular(idTitular).addCliente(&clientes.back());
 
 }
 
-
-void Modelo::crearTitular(int idTitular, Cliente& cliente, Cuenta& cuenta){                          //se crea un objeto titular con dos ojetos Cliente&  y Cuenta& allá en titular el recibe titular(cliente*, cuenta*)
-  std::string tipoTitular;
-  std::string fechaVinculacion;
-  
-  std::cout<<"Qué tipo de titularidad tiene"<<std::endl;
-  std::getline(std::cin, tipoTitular);
-  
-  std::cout<<"Escriba la fecha de vinculación"<<std::endl;
-  std::getline(std::cin, fechaVinculacion);
-  for(auto& cu: cuentas){
-      if(cu.getIdTitular() == idTitular){
-        for(auto& cli: clientes){
-          if(cli.getIdTitular() == idTitular){
-              Titular titular(&cli, &cu, idTitular, tipoTitular,fechaVinculacion);
-              banco.addTitular(titular); 
-          }
-        }
-      }
-   }
-}
 
 
 
