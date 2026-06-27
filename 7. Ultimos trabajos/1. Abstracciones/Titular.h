@@ -3,6 +3,7 @@
 #include "Cuenta.h"
 #include "Cliente.h"
 #include <string>
+#include <vector>
 
 class Titular{
 
@@ -19,9 +20,9 @@ Titular(std::vector<Cliente*> auxClientes,std::vector<Cuenta*> auxCuentas,int au
 std::string getTipoTitular();
 std::string getFechaVinculacion();
 std::vector<Cliente*>& getClientes();
-void addCliente(Cliente& cliente);
+void addCliente(Cliente* cliente);
 std::vector<Cuenta*>& getCuentas(); 
-void addCuenta(Cuenta& cuenta);
+void addCuenta(Cuenta* cuenta);
 int getIdTitular();
 };
 

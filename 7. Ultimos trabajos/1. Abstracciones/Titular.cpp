@@ -15,20 +15,20 @@ std::string Titular::getFechaVinculacion(){
 return fechaVinculacion;
 }
 
-std::vector<Cliente*> Titular::getClientes(){
+std::vector<Cliente*>& Titular::getClientes(){
  return clientes;
 }
 
-void Titular::addCliente(Cliente& cliente){
-  clientes.push_back(&cliente);
+void Titular::addCliente(Cliente* cliente){
+  clientes.push_back(cliente);
 }
 
-std::vector<Cuenta*> Titular::getCuentas(){
+std::vector<Cuenta*>& Titular::getCuentas(){
  return cuentas;
 }
 
-void Titular::addCuenta(Cuenta& cuenta){
-  cuentas.push_back(&cuenta);
+void Titular::addCuenta(Cuenta* cuenta){
+  cuentas.push_back(cuenta);
 }
 
 

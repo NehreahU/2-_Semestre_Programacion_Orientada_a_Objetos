@@ -10,6 +10,7 @@ double tasaInteres;
 public:
 CuentaAhorros(int auxIdTitular, const std::string& auxId, long auxSaldo, const std::string& auxTipo);
 void setTasaInteres(double auxInteres);
+double getTasaInteres();
 void aplicarInteres();
 
 };

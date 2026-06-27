@@ -8,6 +8,10 @@ void CuentaAhorros::setTasaInteres(double auxInteres){
  tasaInteres = auxInteres; 
 }
 
+double CuentaAhorros::getTasaInteres(){
+  return tasaInteres;
+}
+
 
 void CuentaAhorros::aplicarInteres(){
   saldo += saldo*tasaInteres;

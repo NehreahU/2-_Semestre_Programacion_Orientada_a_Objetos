@@ -15,6 +15,7 @@ Cuenta(int idTitular, const std::string& auxId, long auxSaldo, const std::string
 int getIdTitular();
 std::string getNumeroCuenta();
 long getSaldo();
+std::string getTipoCuenta();
 void setNumeroCuenta(std::string auxId);
 void setSaldo(long auxSaldo);
 virtual bool retirarDinero(long cantidad);

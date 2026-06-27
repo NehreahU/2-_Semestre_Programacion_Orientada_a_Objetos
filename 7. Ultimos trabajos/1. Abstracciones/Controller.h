@@ -26,6 +26,8 @@ void añadirCliente();
 
 void transferencia();
 
+void limpiar();
+
 
 };
 

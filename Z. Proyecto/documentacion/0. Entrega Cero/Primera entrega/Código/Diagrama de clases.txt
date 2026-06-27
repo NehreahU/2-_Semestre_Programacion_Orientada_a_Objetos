@@ -1,0 +1,105 @@
+@startuml
+
+class Controller {
+- nivel: int
+- vista: View&
+- model: Model&
++ Controller(Model& auxModelo, View& auxVista)
++ iniciarJuego(): bool
++ movimientosVehiculos(): void
++ mostrarMapa(): void
++ pushPasajerosBus(): void
++ verificarZonaRecogida(): void
++ verificarVictoria(): bool
++ verificarDerrota(): bool
+}
+
+class Model {
+- vehiculos: vector<Vehiculo>
+- pasajeros: vector<Pasajero>
+- tablero: Tablero
++ Model()
++ cargarTxt(int nivel): void
++ cargarVehiculosEnTablero(): void
++ cargarPasajerosEnTablero(): void
++ verificarColision(int posX, int posY): bool
++ verificarDireccion(char direccion, int posX, int posY): bool
++ verificarInputDireccion(): char
++ verificarPosicionVehiculo(): tuple<int,int>
++ verificarZonaRecogida(): void
++ moverVehiculo(int posX, int posY, int tam, char direccion): bool
++ pushPasajerosBus(int i): void
++ getVerificarDerrota(): bool
++ getTablero(): Tablero&
+}
+
+class View {
++ View()
++ mostrarMenu(): void
++ mostrarNivel(int nivel): void
++ mostrarMapa(Tablero& paradero): void
+}
+
+class Tablero {
+- filas: int
+- columnas: int
+- zonaCoches: vector<vector<Vehiculo*>>
+- filaPasajeros: vector<Pasajero*>
+- zonaRecogida: vector<Vehiculo*>
+- zonaVictoria: vector<Vehiculo*>
+- verificarDerrota: bool
++ Tablero()
++ Tablero(int auxFilas, int auxColumnas)
++ setZonaCoches(Vehiculo* auxVehiculo): void
++ pushFilaPasajeros(Pasajero* peaton): void
++ verificarColision(int posX, int posY): bool
++ verificarDireccion(char direccion, int posX, int posY): bool
++ verificarDerrota(): bool
++ moverVehiculo(int posX, int posY, int tam): void
++ pushPasajerosBus(Pasajero* peaton, int i): void
++ verificarZonaRecogida(): void
++ pushZonaVictoria(Vehiculo* carro): void
++ getFilas(): int
++ getColumnas(): int
++ getFilaPasajeros(): vector<Pasajero*>&
++ getZonaRecogida(): vector<Vehiculo*>&
++ getZonaCoches(): vector<vector<Vehiculo*>>&
+}
+class Vehiculo {
+- tipo: char
+- color: char
+- orientacion: char
+- tamano: int
+- posX: int
+- posY: int
+- sillas: vector<Pasajero*>
++ Vehiculo(char auxTipo, char auxColor, char auxOrientacion, int auxTamano, int auxPosX, int auxPosY)
++ getColor(): char
++ getTipo(): char
++ getTamano(): int
++ getOrientacion(): char
++ getPosX(): int
++ getPosY(): int
++ getSizeSillas(): int
++ setPos(int x, int y): void
++ pushPasajerosBus(Pasajero* peaton): void
+}
+
+class Pasajero {
+- color: char
++ Pasajero(char auxColor)
++ getColor(): char
+}
+
+
+' Relaciones
+Controller --> Model 
+Controller --> View 
+Model *-- Tablero 
+Model *-- Vehiculo
+Model *-- Pasajero
+Tablero o-- Vehiculo 
+Tablero o-- Pasajero 
+Vehiculo o-- Pasajero
+
+@endum

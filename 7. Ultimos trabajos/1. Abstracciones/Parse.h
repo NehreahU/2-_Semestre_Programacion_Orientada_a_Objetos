@@ -10,10 +10,10 @@ class Parse{
 public:
 Parse();
 bool cargarBanco(Banco& banco);
-void cargarClientes(std::vector<Cliente>& clientes);
-void cargarCuentas(std::vector<Cuenta>& cuentas);
+void cargarClientes(Banco& banco);
+void cargarCuentas(Banco& banco);
 
-void cargarTitulares(Banco& banco, std::vector<Cliente>& clientes, std::vector<Cuenta>& cuentas);
+void cargarTitulares(Banco& banco);
 
 void guardar(Banco& banco);
 

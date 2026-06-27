@@ -12,8 +12,8 @@ Modelo::Modelo(): banco("NN"){
 bool Modelo::cargarBanco(){
   Parse parse;
   if(parse.cargarBanco(banco)){
-    parse.cargarClientes(clientes);
-    parse.cargarCuentas(cuentas);
+    parse.cargarClientes(banco);
+    parse.cargarCuentas(banco);
     parse.cargarTitulares(banco);
     return true;
   }
@@ -27,6 +27,11 @@ void Modelo::crearBanco(){
   std::cout<<"Ingrese el nombre de su Banco: ";
   std::getline(std::cin, nombre);
   banco.setNombre(nombre);
+  std::vector<Titular> titulares;
+  titulares.clear();
+  banco.setTitulares(titulares);
+  Parse parse;
+  parse.guardar(banco);
 }
 
 
@@ -39,11 +44,31 @@ bool Modelo::verificarTitular(int idTitular){
   }
 }
 
+bool Modelo::verificarCuenta(int idTitular, std::string idCuenta){
+  if(banco.verificarCuenta(idTitular, idCuenta)){
+    return true;
+  }
+  else{
+   return false;
+  }
+}
 
-void Modelo::crearTitular(int idTitular){                          //se crea un objeto titular con dos ojetos Cliente&  y Cuenta& allá en titular el recibe titular(cliente*, cuenta*)
+
+
+bool Modelo::verificarCliente(int idTitular, std::string idCliente){
+  if(banco.verificarCliente(idTitular, idCliente)){
+    return true;
+  }
+  else{
+   return false;
+  }
+}
+
+
+
+void Modelo::crearTitular(int idTitular){                          //se crea un objeto titular con dos objetos Cliente&  y Cuenta& allá en titular el recibe titular(cliente*, cuenta*)
   std::string tipoTitular;
   std::string fechaVinculacion;
-  
   std::cout<<"Qué tipo de titularidad tiene"<<std::endl;
   std::getline(std::cin, tipoTitular);
   
@@ -52,6 +77,10 @@ void Modelo::crearTitular(int idTitular){                          //se crea un 
   
   Titular titular(idTitular, tipoTitular,fechaVinculacion);
   banco.addTitular(titular); 
+  
+  //Guardar
+  Parse parse;
+  parse.guardar(banco);
 }
 
 
@@ -73,20 +102,21 @@ void Modelo::crearCuenta(int idTitular){ //Se crea objeto cuenta y se envía al 
   
   switch (tipoCuenta){
     case 1:{
-      CuentaAhorros cuenta(idTitular, id, saldo, "CuentaAhorros");
-      cuentas.push_back(cuenta);
-      banco.getTitular(idTitular).addCuenta(&cuentas.back());
+      CuentaAhorros* cuentaPtr = new CuentaAhorros(idTitular, id, saldo, "CuentaAhorros");
+      banco.getTitular(idTitular).addCuenta(cuentaPtr);
       break;
     }
     case 2:{
-      CuentaCorriente cuenta(idTitular, id, saldo, "CuentaCorriente");
-      cuentas.push_back(cuenta);
-      banco.getTitular(idTitular).addCuenta(&cuentas.back());
+      CuentaCorriente* cuentaPtr = new CuentaCorriente(idTitular, id, saldo, "CuentaCorriente");
+      banco.getTitular(idTitular).addCuenta(cuentaPtr);
+      break;
     }
     default:{
-      throw std::invalid_argument("Error");
+      throw std::invalid_argument("Error: "+std::string(__FILE__)+" "+std::to_string(__LINE__));
     }
   }
+  Parse parse;
+  parse.guardar(banco);
 }
 
 
@@ -95,7 +125,6 @@ void Modelo::crearCliente(int idTitular){ //Se crea un objeto cliente y se enví
   std::string identificacion;
   std::string nombre;
   std::string telefono;
-  
   std::cout<<"Ingrese la identificación del cliente"<<std::endl;
   std::getline(std::cin, identificacion);
   
@@ -105,9 +134,10 @@ void Modelo::crearCliente(int idTitular){ //Se crea un objeto cliente y se enví
   std::cout<<"Ingrese el teléfono del cliente"<<std::endl;
   std::getline(std::cin, telefono);
   
-  Cliente cliente(idTitular, identificacion,nombre,telefono);
-  clientes.push_back(cliente);
-  banco.getTitular(idTitular).addCliente(&clientes.back());
+  Cliente* clientePtr = new Cliente(idTitular, identificacion,nombre,telefono);
+  banco.getTitular(idTitular).addCliente(clientePtr);
+  Parse parse;
+  parse.guardar(banco);
 
 }
 
@@ -115,28 +145,66 @@ void Modelo::crearCliente(int idTitular){ //Se crea un objeto cliente y se enví
 
 
 
-void Modelo::consignarDinero(int dinero, int idProceso){
-  for (auto& cuenta: cuentas){
-    if(cuenta.getIdTitular() == idProceso){
-      cuenta.consignarDinero(dinero);
+void Modelo::consignarDinero(int dinero, int idProceso, std::string idCuenta){
+  std::vector<Titular> titulares = banco.getTitulares();
+  for(auto& titular: titulares){
+    if(titular.getIdTitular() == idProceso){
+      std::vector<Cuenta*>& cuentas = titular.getCuentas();
+      for (auto& cuenta: cuentas){
+        if(cuenta->getIdTitular() == std::stoi(idCuenta)){
+          cuenta->consignarDinero(dinero);
+        }
+      }
     }
-  }
+  }//end primer for
 }
 
-void Modelo::retirarDinero(int dinero,int idProceso){
-  for(auto& cuenta: cuentas){
-    if(cuenta.getIdTitular() == idProceso){
-      cuenta.retirarDinero(dinero);
+void Modelo::retirarDinero(int dinero,int idProceso, std::string idCuenta){
+  std::vector<Titular> titulares = banco.getTitulares();
+  for(auto& titular: titulares){
+    if(titular.getIdTitular() == idProceso){
+      std::vector<Cuenta*>& cuentas = titular.getCuentas();
+      for (auto& cuenta: cuentas){
+        if(cuenta->getIdTitular() == std::stoi(idCuenta)){
+          cuenta->retirarDinero(dinero);
+        }
+      }
     }
-  }
+  }//end primer for
 }
 
-
-int Modelo::consultarSaldo(int idProceso){
-  for(auto& cuenta: cuentas){
-    if(cuenta.getIdTitular() == idProceso){
-      return cuenta.getSaldo();
+int Modelo::consultarSaldo(int idProceso, std::string idCuenta){
+  std::vector<Titular> titulares = banco.getTitulares();
+  for(auto& titular: titulares){
+    if(titular.getIdTitular() == idProceso){
+      std::vector<Cuenta*>& cuentas = titular.getCuentas();
+      for (auto& cuenta: cuentas){
+        if(cuenta->getIdTitular() == std::stoi(idCuenta)){
+          return cuenta->getSaldo();
+        }
+      }
     }
-  }
+  }//end primer for
   return 0;
+}
+
+
+
+void Modelo::limpiar(){
+  
+  std::vector<Titular>& titulares = banco.getTitulares();
+  for(auto& titular: titulares){
+    
+    std::vector<Cliente*>& clientes = titular.getClientes();    
+    for(auto* cliente: clientes){
+      delete cliente;
+    }
+    clientes.clear();
+    std::vector<Cuenta*>& cuentas = titular.getCuentas();
+    for(auto* cuenta: cuentas){
+      delete cuenta;
+    }
+    cuentas.clear();
+  }
+  titulares.clear();
 }

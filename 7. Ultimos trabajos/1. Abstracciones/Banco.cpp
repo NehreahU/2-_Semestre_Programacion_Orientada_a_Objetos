@@ -14,6 +14,7 @@ Titular& Banco::getTitular(int idTitular){
       return titular; 
     }
   }
+  throw std::runtime_error("Error: "+std::string(__FILE__)+" "+std::to_string(__LINE__));
 }
 
 std::vector<Titular>& Banco::getTitulares(){
@@ -29,6 +30,40 @@ bool Banco::verificarTitular(int idTitular){
   }
   return false;
 }
+
+
+
+bool Banco::verificarCuenta(int idTitular, std::string idCuenta){
+  for (auto& titular: titulares){
+    if(titular.getIdTitular()== idTitular){
+      std::vector<Cuenta*>& cuentas = titular.getCuentas();
+      for(auto& cuenta: cuentas){
+        if(cuenta->getNumeroCuenta() == idCuenta){
+          return true;
+        }
+      }
+    }
+  }
+  return false;
+}
+
+
+
+bool Banco::verificarCliente(int idTitular, std::string idCliente){
+  for (auto& titular: titulares){
+    if(titular.getIdTitular()== idTitular){
+      std::vector<Cliente*>& clientes = titular.getClientes();
+      for(auto& cliente: clientes){
+        if(cliente->getIdentificacion() == idCliente){
+          return true;
+        }
+      }
+    }
+  }
+  return false;
+}
+
+
 
 void Banco::addTitular(Titular titular){
   titulares.push_back(titular);

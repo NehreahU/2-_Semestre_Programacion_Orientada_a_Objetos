@@ -16,6 +16,10 @@ long Cuenta::getSaldo(){
   return saldo;
 }
 
+std::string Cuenta::getTipoCuenta(){
+  return tipoCuenta;
+}
+
 void Cuenta::setNumeroCuenta(std::string auxId){
   id = auxId;
 }
