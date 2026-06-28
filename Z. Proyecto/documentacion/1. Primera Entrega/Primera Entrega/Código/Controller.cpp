@@ -144,6 +144,8 @@ bool Controller::verificarDerrota(){
  return model.getVerificarDerrota();
 }
 
+
+
 bool Controller::verificarVictoria(){
   std::vector<Pasajero*> filaPasajeros = model.getTablero().getFilaPasajeros();
   if (filaPasajeros.size() == 0){
