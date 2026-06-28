@@ -12,15 +12,15 @@
     
     Autores:
     Estudiante Jhoan Esteban Penagos Lizcano
-    Código: 202517537  
+    Código: 2517537  
     Email: Jhoan.penagos@correounivalle.edu.co
 
     Estudiante Maria Camila Zuleta Peña
-    Código: 
+    Código: 2540542
     Email: mariacamilazuletapena@gmail.com
   
     Estudiante: Javier Felipe Contreras Díaz
-    Código: 202535936
+    Código: 2535936
     Email: contreras.javier@correounivalle.edu.co
 		
     Fecha: Junio 2026
@@ -216,9 +216,6 @@ bool Tablero::moverVehiculo(int posX, int posY, int tam){
         zonaCoches[x][y+tam] = nullptr;
       }
       if (tam == 0){
-        if(zonaRecogida[0] == nullptr && zonaRecogida[1] == nullptr && zonaRecogida[2] == nullptr && zonaRecogida[3] == nullptr){
-          zonaRecogida.clear();
-        }
         //si los 4 punteros son reales, no agrega nada
       if(zonaRecogida[0] && zonaRecogida[1] && zonaRecogida[2] && zonaRecogida[3] ){
          verificarDerrota = true;

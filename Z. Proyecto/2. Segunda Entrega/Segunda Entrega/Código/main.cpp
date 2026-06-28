@@ -24,14 +24,26 @@
 		
     Fecha: Junio 2026
 */
+
+
+
 #include "Controller.h"
 #include "Model.h"
 #include "View.h"
 #include "ViewConsola.h"
 #include <iostream>
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
 int main() {
+  
+    #ifdef _WIN32
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
+    #endif
+
 //se crean 2 objetos de vista, uno para tener un View de consola y otro (aun no implementado) tendrá una vista con SFML
   ViewConsola vistaConsola;
   //Este vistaConsola2, se usará en un futuro ViewSFML y se llamará vistaSFML

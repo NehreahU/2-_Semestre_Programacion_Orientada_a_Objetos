@@ -71,7 +71,9 @@ bool Controller::iniciarJuego(){
 
   //mostrar mapa
   vista.mostrarNivel(nivel);
+  vista.mostrarBarra();
   vista.mostrarMapa(model.getTablero());
+  vista.mostrarBarra();
   return true;
 }
           
@@ -79,7 +81,9 @@ bool Controller::iniciarJuego(){
 void Controller::mostrarMapa(){
  //mostrar mapa
  vista.mostrarNivel(nivel);
+ vista.mostrarBarra();
  vista.mostrarMapa(model.getTablero());
+ vista.mostrarBarra();
 }
 
 //pide coordenadas, las verifica, pide dirección y sea una entrada válida. Verifica la colisión del vehículo, de no haber entra en un bucle que mientras mover vehículo sea true verifica sus coordenadas más actuales y se mueve.
@@ -105,11 +109,15 @@ bool Controller::movimientosVehiculos(){
         tam -= 1;
       }
           vista.mostrarNivel(nivel);
+          vista.mostrarBarra();
           vista.mostrarMapa(model.getTablero());
+          vista.mostrarBarra();
           std::this_thread::sleep_for(std::chrono::milliseconds(300));    
     }
           vista.mostrarNivel(nivel);
-          vista.mostrarMapa(model.getTablero());    
+          vista.mostrarBarra();
+          vista.mostrarMapa(model.getTablero());
+          vista.mostrarBarra();
    }
    return true;
 }
@@ -122,7 +130,9 @@ void Controller::pushPasajerosBus(){
   while(model.verificarPushPasajeros()){
     model.pushPasajerosBus();
     vista.mostrarNivel(nivel);
+    vista.mostrarBarra();
     vista.mostrarMapa(model.getTablero());
+    vista.mostrarBarra();
     std::this_thread::sleep_for(std::chrono::milliseconds(400));
   }
 }
@@ -131,7 +141,9 @@ void Controller::pushPasajerosBus(){
 void Controller::verificarZonaRecogida(){
   model.verificarZonaRecogida();
   vista.mostrarNivel(nivel);
+  vista.mostrarBarra();
   vista.mostrarMapa(model.getTablero());
+  vista.mostrarBarra();
 }
 
 
@@ -144,13 +156,13 @@ bool Controller::verificarDerrota(){
  return model.getVerificarDerrota();
 }
 
-
-
 bool Controller::verificarVictoria(){
   std::vector<Pasajero*> filaPasajeros = model.getTablero().getFilaPasajeros();
   if (filaPasajeros.size() == 0){
     vista.mostrarNivel(nivel);
+    vista.mostrarBarra();
     vista.mostrarMapa(model.getTablero());
+    vista.mostrarBarra();
     vista.pantallaVictoria();
     return true;
   }
